@@ -48,7 +48,13 @@ class Paulund_Wp_List_Table
         <div class="wrap">
             <div id="icon-users" class="icon32"></div>
             <h2>Example List Table Page</h2>
-            <?php $exampleListTable->display(); ?>
+            <form id="events-filter" method="get">
+                <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+                <?php
+                $exampleListTable->display();
+                ?>
+            </form>
+            
         </div>
     <?php
     }
@@ -272,7 +278,7 @@ class Example_List_Table extends WP_List_Table
             self::delete_record( absint( $_GET['id'] ) );
 
             wp_redirect( esc_url( remove_query_arg(array( 'action', 'id')) ) );
-            exit;
+            //exit;
 
         }
 
@@ -290,7 +296,7 @@ class Example_List_Table extends WP_List_Table
             }
 
             wp_redirect( esc_url( add_query_arg() ) );
-            exit;
+            //exit;
         }
     }
 
