@@ -1,23 +1,23 @@
 <?php
 /*
- * Plugin Name: Paulund WP List Table Example
+ * Plugin Name: Akr WP List Table Example
  * Description: An example of how to use the WP_List_Table class to display data in your WordPress Admin area
- * Plugin URI: http://www.paulund.co.uk
- * Author: Paul Underwood
- * Author URI: http://www.paulund.co.uk
+ * Plugin URI: http://akrana1990.github.io
+ * Author: Ankit Rana
+ * Author URI: http://akrana1990.github.io
  * Version: 1.0
  * License: GPL2
  */
 
 if(is_admin())
 {
-    new Paulund_Wp_List_Table();
+    new Akr_Wp_List_Table();
 }
 
 /**
- * Paulund_Wp_List_Table class will create the page to load the table
+ * Akr_Wp_List_Table class will create the page to load the table
  */
-class Paulund_Wp_List_Table
+class Akr_Wp_List_Table
 {
     /**
      * Constructor will create the menu item
@@ -48,7 +48,7 @@ class Paulund_Wp_List_Table
         <div class="wrap">
             <div id="icon-users" class="icon32"></div>
             <h2>Example List Table Page</h2>
-            <form id="events-filter" method="get">
+            <form id="events-filter" method="POST">
                 <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
                 <?php
                 $exampleListTable->display();
@@ -235,7 +235,7 @@ class Example_List_Table extends WP_List_Table
 
     function column_cb($data) {
         return sprintf(
-            '<input type="checkbox" name="row[]" value="%s" />', $data['id']
+            '<input type="checkbox" name="bulk-delete[]" value="%s" />', $data['id']
         );
     }
 
@@ -288,7 +288,9 @@ class Example_List_Table extends WP_List_Table
         ) {
 
             $delete_ids = esc_sql( $_POST['bulk-delete'] );
-
+            /*echo '<pre>';
+            print_r($delete_ids);
+            echo '</pre>';*/
             // loop over the array of record IDs and delete them
             foreach ( $delete_ids as $id ) {
                 self::delete_record( $id );
@@ -296,7 +298,7 @@ class Example_List_Table extends WP_List_Table
             }
 
             wp_redirect( esc_url( add_query_arg() ) );
-            //exit;
+            exit;
         }
     }
 
